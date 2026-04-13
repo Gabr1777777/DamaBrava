@@ -358,16 +358,21 @@
 
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
         
-        .welcome-text {
+        /* ESTILO DO TÍTULO CORRIGIDO */
+        .welcome-heading {
             font-size: 45px;
             font-weight: bold;
+            display: inline-block;
+        }
+
+        .animated-text {
             background: linear-gradient(270deg, #ff0000, #ffffff, #ff0000);
             background-size: 600% 600%;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             animation: gradientAnim 3s ease infinite;
-            display: inline-block;
+            text-shadow: none; /* Removido para não sobrepor o recorte do gradiente */
         }
 
         .trail-heart {
@@ -433,7 +438,7 @@
 
         <div id="main-content">
             <div id="inicio" class="view active">
-                <h1 class="welcome-text">🌻 Bem vindos ao meu Xatspace 🌻</h1>
+                <h1 class="welcome-heading">🌻 <span class="animated-text">Bem vindos ao meu Xatspace</span> 🌻</h1>
                 <p>Navegue pelas abas na barra lateral para conhecer meu perfil.</p>
             </div>
 
@@ -529,7 +534,6 @@
         function loadTrack(idx) {
             currentTrack = (idx + playlist.length) % playlist.length;
             audio.src = playlist[currentTrack].url;
-            // Como a nova playlist só tem 'name', usamos para o título e faixa
             document.getElementById('track-title').innerText = "Tocando Agora";
             document.getElementById('track-name').innerText = playlist[currentTrack].name;
             if (!audio.paused) audio.play();
