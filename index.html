@@ -55,7 +55,7 @@
         }
 
         #profile-content {
-            display: none; /* Inicia oculto */
+            display: none; 
             width: 100%;
             height: 100vh;
             background-color: #220000;
@@ -175,7 +175,7 @@
             background: #110000;
         }
 
-        .slide { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .slide { width: 100%; height: 100%; object-fit: cover; display: none; cursor: zoom-in; }
 
         .slide-btn {
             position: absolute;
@@ -196,6 +196,35 @@
             background-size: 600% 600%;
             animation: gradientAnim 3s ease infinite;
             color: #000;
+        }
+
+        /* MODAL DE ZOOM */
+        #modal-zoom {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #img-zoom {
+            max-width: 90%;
+            max-height: 90%;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 30px #ff0000;
+            border-radius: 10px;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         #typing-text {
@@ -341,7 +370,6 @@
             display: inline-block;
         }
 
-        /* TRAIL HEARTS */
         .trail-heart {
             position: absolute;
             color: rgba(255, 0, 0, 0.7); 
@@ -357,7 +385,6 @@
             100% { transform: translate(-50%, -50%) translateY(20px) scale(0.5); opacity: 0; }
         }
 
-        /* Estilização do Alerta Copyright */
         #custom-alert {
             display: none;
             position: fixed;
@@ -387,6 +414,8 @@
     </style>
 </head>
 <body>
+
+    <div id="modal-zoom" onclick="this.style.display='none'"><img id="img-zoom"></div>
 
     <div id="entry-screen">
         <button id="enter-btn" onclick="startApp()">Entrar</button>
@@ -431,12 +460,12 @@
                     <button class="slide-btn" style="left:0" onclick="changeSlide(-1)">❮</button>
                     <button class="slide-btn" style="right:0" onclick="changeSlide(1)">❯</button>
                     
-                    <img src="https://i.imgur.com/8XgkRaB.jpeg" class="slide">
-                    <img src="https://i.imgur.com/JxNFkn0.jpeg" class="slide">
-                    <img src="https://i.imgur.com/VKCSJDz.jpeg" class="slide">
-                    <img src="https://i.imgur.com/O5cCcwU.jpeg" class="slide">
-                    <img src="https://i.imgur.com/Vdk8JTJ.jpeg" class="slide">
-                    <img src="https://i.imgur.com/N8AYKYh.jpeg" class="slide">
+                    <img src="https://i.imgur.com/8XgkRaB.jpeg" class="slide" onclick="openZoom(this.src)">
+                    <img src="https://i.imgur.com/JxNFkn0.jpeg" class="slide" onclick="openZoom(this.src)">
+                    <img src="https://i.imgur.com/VKCSJDz.jpeg" class="slide" onclick="openZoom(this.src)">
+                    <img src="https://i.imgur.com/O5cCcwU.jpeg" class="slide" onclick="openZoom(this.src)">
+                    <img src="https://i.imgur.com/Vdk8JTJ.jpeg" class="slide" onclick="openZoom(this.src)">
+                    <img src="https://i.imgur.com/N8AYKYh.jpeg" class="slide" onclick="openZoom(this.src)">
                 </div>
             </div>
 
@@ -489,7 +518,7 @@
         function startApp() {
             document.getElementById('entry-screen').style.display = 'none';
             const content = document.getElementById('profile-content');
-            content.style.display = 'flex'; // CORREÇÃO: Força o display flex para mostrar o layout
+            content.style.display = 'flex'; 
             loadTrack(0);
             audio.play();
             setInterval(createHeart, 300);
@@ -557,6 +586,14 @@
         }
 
         function changeSlide(n) { showSlides(slideIdx + n); }
+
+        // FUNÇÃO ZOOM
+        function openZoom(src) {
+            const modal = document.getElementById('modal-zoom');
+            const img = document.getElementById('img-zoom');
+            img.src = src;
+            modal.style.display = 'flex';
+        }
 
         function createHeart() {
             const h = document.createElement('div');
