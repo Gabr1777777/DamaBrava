@@ -471,9 +471,9 @@
 
             <div id="musica" class="view">
                 <div class="music-card">
-                    <h3 id="track-title">Eminem</h3>
+                    <h3 id="track-title">Música</h3>
                     <div class="marquee-container">
-                        <span class="marquee-text" id="track-name">You don't know</span>
+                        <span class="marquee-text" id="track-name">Selecione uma faixa</span>
                     </div>
                     <div class="controls">
                         <button class="skip-btn" onclick="changeTrack(-1)">⏮</button>
@@ -504,8 +504,10 @@
 
     <script>
         const playlist = [
-            { title: "Eminem", name: "You don't know", url: "https://www.dropbox.com/scl/fi/4y0lc0fi24e9yavn17psv/Eminem-you-dont-know.mp3.mp3?rlkey=zicb6spgqe3pv0gqnz3xc24zo&st=wy1w0icm&raw=1" },
-            { title: "The Sound of Silence", name: "Rising to the Night", url: "https://www.dropbox.com/scl/fi/2y9zhx5zjsdxg3zljc2f9/sound-of-silence.mp3.mp3?rlkey=88zg0td3loy40uxmcm9rnk1jt&st=qty8093e&raw=1" }
+            { name: "Lauren Daigle - You Say", url: "https://www.dropbox.com/scl/fi/yh2lwalcqgm5qo5plub79/Lauren-Daigle-You-Say-Lyric-Video.mp3?rlkey=odlo1505cdounmrfjfgpi3kxg&st=hsm6iws7&raw=1" },
+            { name: "Ana Duarte - Dama", url: "https://www.dropbox.com/scl/fi/ylqrotqq5xwqf2y5svgm0/Ana-Duarte-Dama-Audio-Oficial.mp3?rlkey=r1no74zgnp6aq4g7ha3u4nd18&st=2ck05m25&&raw=1" },          
+            { name: "David Garcia - Beijos Com Fogo", url: "https://www.dropbox.com/scl/fi/jyiqceovjzn41jqyr7jf7/David-Garcia-Beijos-Com-Fogo.mp3?rlkey=blhjufjw98cqhvl657n1fvcmu&st=rdgi3ufw&&raw=1" },
+            { name: "Chayanne - Bailando Bachata", url: "https://www.dropbox.com/scl/fi/1489audyaxm5aq2fyz40q/Chayanne-Bailando-Bachata.mp3?rlkey=8lnyw58p7piwtbttx8qhmgz3n&st=x1qexsj7&&raw=1" }
         ];
 
         let currentTrack = 0;
@@ -527,7 +529,8 @@
         function loadTrack(idx) {
             currentTrack = (idx + playlist.length) % playlist.length;
             audio.src = playlist[currentTrack].url;
-            document.getElementById('track-title').innerText = playlist[currentTrack].title;
+            // Como a nova playlist só tem 'name', usamos para o título e faixa
+            document.getElementById('track-title').innerText = "Tocando Agora";
             document.getElementById('track-name').innerText = playlist[currentTrack].name;
             if (!audio.paused) audio.play();
         }
@@ -587,7 +590,6 @@
 
         function changeSlide(n) { showSlides(slideIdx + n); }
 
-        // FUNÇÃO ZOOM
         function openZoom(src) {
             const modal = document.getElementById('modal-zoom');
             const img = document.getElementById('img-zoom');
