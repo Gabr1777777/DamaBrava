@@ -619,6 +619,14 @@
             }, 2000);
         }
 
+        /* TRAVA PARA NÃO ARRASTAR IMAGENS */
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.nodeName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
             showAlert();
